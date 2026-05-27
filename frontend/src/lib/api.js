@@ -34,4 +34,21 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+// Global Response Interceptor to handle Session Expiry
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        // If the server returns 401 Unauthorized (e.g. session expired)
+        if (error.response && error.response.status === 401) {
+            // Clear any local user data
+            localStorage.removeItem('user');
+            // If we are not already on the login page, redirect
+            if (window.location.pathname !== '/login') {
+                window.location.href = '/login';
+            }
+        }
+        return Promise.reject(error);
+    }
+);
+
 export default api;
