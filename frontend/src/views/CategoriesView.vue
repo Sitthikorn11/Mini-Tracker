@@ -235,7 +235,7 @@ const saveCategory = async () => {
 }
 
 const deleteCategory = async (id) => {
-  if (!confirm('Are you sure you want to delete this category? (Transactions linked to this might lose their category reference)')) return
+  if (!confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่นี้?')) return
   
   try {
     await api.delete(`/categories/${id}`)
@@ -244,7 +244,7 @@ const deleteCategory = async (id) => {
     await categoryStore.fetchCategories(true)
   } catch (error) {
     console.error('Failed to delete category', error)
-    toast.error('Failed to delete category.')
+    toast.error(error.response?.data?.message || 'Failed to delete category.')
   }
 }
 </script>

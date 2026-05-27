@@ -63,6 +63,13 @@ class CategoryController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
+        // Prevent deletion if transactions exist to avoid data loss (cascade delete)
+        if ($category->transactions()->exists()) {
+            return response()->json([
+                'message' => 'ไม่สามารถลบได้ เนื่องจากมีการบันทึกรายรับ/รายจ่ายในหมวดหมู่นี้อยู่'
+            ], 422);
+        }
+
         $category->delete();
 
         return response()->json(null, 204);
