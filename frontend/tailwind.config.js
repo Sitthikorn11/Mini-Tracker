@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Prompt', 'Inter', 'sans-serif'],
+      },
       colors: {
         'primary': '#059669',
         'income': '#10B981',
