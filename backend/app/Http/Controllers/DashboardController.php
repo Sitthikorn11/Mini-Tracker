@@ -72,7 +72,8 @@ class DashboardController extends Controller
             'summary' => [
                 'income' => $totalIncome,
                 'expense' => $totalExpense,
-                'balance' => $balance
+                'balance' => $balance,
+                'monthly_budget' => $user->monthly_budget ?? 0
             ],
             'expense_by_category' => $expenseByCategory,
             'monthly_trend' => $monthlyTrend,

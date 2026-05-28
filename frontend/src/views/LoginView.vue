@@ -1,5 +1,15 @@
 <template>
-  <div class="min-h-screen flex bg-white">
+  <div class="min-h-screen flex bg-white dark:bg-slate-900 transition-colors duration-300">
+    <!-- Theme Toggle Button -->
+    <button @click="toggleDarkMode" class="absolute top-6 right-6 z-50 p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-sm border border-slate-200 dark:border-slate-700">
+      <svg v-if="!isDarkMode" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+      <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    </button>
+
     <!-- Left Panel: Hero Graphic (Hidden on mobile) -->
     <div class="hidden lg:flex lg:w-1/2 bg-primary relative overflow-hidden items-center justify-center p-12">
       <!-- Decorative background elements -->
@@ -38,11 +48,11 @@
     </div>
 
     <!-- Right Panel: Login Form -->
-    <div class="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-12 lg:p-24 bg-white relative items-center">
+    <div class="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-12 lg:p-24 bg-white dark:bg-slate-900 relative items-center transition-colors duration-300">
       <div class="w-full max-w-sm animate-slide-up">
         <!-- Logo / Icon -->
         <div class="flex justify-center mb-8">
-          <div class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-primary rotate-3">
+          <div class="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center text-primary rotate-3 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
@@ -50,30 +60,30 @@
         </div>
 
         <div class="text-center mb-10">
-          <h2 class="text-3xl font-bold text-slate-800 tracking-tight">{{ isLogin ? 'Welcome back' : 'Create an account' }}</h2>
-          <p class="text-slate-500 mt-2">{{ isLogin ? 'Please enter your details to sign in.' : 'Start tracking your finances today.' }}</p>
+          <h2 class="text-3xl font-bold text-slate-800 dark:text-white tracking-tight">{{ isLogin ? 'Welcome back' : 'Create an account' }}</h2>
+          <p class="text-slate-500 dark:text-slate-400 mt-2">{{ isLogin ? 'Please enter your details to sign in.' : 'Start tracking your finances today.' }}</p>
         </div>
 
         <form @submit.prevent="handleSubmit" class="space-y-6">
           
           <!-- Name Field (Register Only) -->
           <div v-if="!isLogin" class="space-y-1 relative">
-            <label class="block text-sm font-medium text-slate-700">Full Name</label>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
             <div class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
               <input v-model="form.name" type="text" required
-                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm"
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 placeholder="John Doe" />
             </div>
           </div>
 
           <!-- Email Field -->
           <div class="space-y-1">
-            <label class="block text-sm font-medium text-slate-700">Email Address</label>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</label>
             <div class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               <input v-model="form.email" type="email" required
-                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm"
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 placeholder="you@example.com" />
             </div>
           </div>
@@ -81,24 +91,24 @@
           <!-- Password Field -->
           <div class="space-y-1">
             <div class="flex items-center justify-between">
-              <label class="block text-sm font-medium text-slate-700">Password</label>
-              <a v-if="isLogin" href="#" class="text-xs font-semibold text-primary hover:underline">Forgot password?</a>
+              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
+              <a v-if="isLogin" href="#" class="text-xs font-semibold text-primary dark:text-emerald-400 hover:underline">Forgot password?</a>
             </div>
             <div class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
               <input v-model="form.password" type="password" required
-                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm"
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 placeholder="••••••••" />
             </div>
           </div>
 
           <!-- Confirm Password (Register Only) -->
           <div v-if="!isLogin" class="space-y-1">
-            <label class="block text-sm font-medium text-slate-700">Confirm Password</label>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Confirm Password</label>
             <div class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
               <input v-model="form.password_confirmation" type="password" required
-                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm"
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 placeholder="••••••••" />
             </div>
           </div>
@@ -115,9 +125,9 @@
         </form>
 
         <!-- Toggle Mode -->
-        <div class="mt-8 text-center text-sm text-slate-500">
+        <div class="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
           {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
-          <button @click="toggleMode" class="text-primary font-semibold hover:underline ml-1">
+          <button @click="toggleMode" class="text-primary dark:text-emerald-400 font-semibold hover:underline ml-1">
             {{ isLogin ? 'Sign up for free' : 'Sign in here' }}
           </button>
         </div>
@@ -132,7 +142,9 @@ import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
 import api from '../lib/api'
 import { useAuthStore } from '../stores/auth'
+import { useTheme } from '../composables/useTheme'
 
+const { isDarkMode, toggleDarkMode } = useTheme()
 const router = useRouter()
 const authStore = useAuthStore()
 const isLogin = ref(true)

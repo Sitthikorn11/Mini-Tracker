@@ -24,4 +24,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // Profile Management
     Route::put('/profile/info', [\App\Http\Controllers\ProfileController::class, 'updateInfo']);
     Route::put('/profile/password', [\App\Http\Controllers\ProfileController::class, 'updatePassword']);
+    Route::put('/profile/budget', [\App\Http\Controllers\ProfileController::class, 'updateBudget']);
 });

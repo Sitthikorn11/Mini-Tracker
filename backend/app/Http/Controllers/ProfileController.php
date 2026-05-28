@@ -42,4 +42,16 @@ class ProfileController extends Controller
 
         return response()->json(['message' => 'Password updated successfully.']);
     }
+
+    public function updateBudget(Request $request)
+    {
+        $validated = $request->validate([
+            'monthly_budget' => 'required|numeric|min:0',
+        ]);
+
+        $user = $request->user();
+        $user->update(['monthly_budget' => $validated['monthly_budget']]);
+
+        return response()->json(['message' => 'Budget updated successfully.', 'monthly_budget' => $user->monthly_budget]);
+    }
 }

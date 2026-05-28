@@ -2,7 +2,7 @@
   <div class="p-6 max-w-6xl mx-auto space-y-6">
     <!-- Header -->
     <div class="flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-slate-800">Transactions</h1>
+      <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Transactions</h1>
       <button @click="openModal()" class="bg-primary hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition-colors flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -12,42 +12,42 @@
     </div>
 
     <!-- Filters & Search Toolbar -->
-    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col lg:flex-row gap-5 items-end">
+    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col lg:flex-row gap-5 items-end transition-colors duration-300">
       <!-- Search -->
       <div class="flex-1 w-full lg:w-auto">
-        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Search</label>
+        <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Search</label>
         <div class="relative">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-3 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <input v-model="filters.search" @keyup.enter="applyFilters" type="text" placeholder="Search transactions..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm" />
+          <input v-model="filters.search" @keyup.enter="applyFilters" type="text" placeholder="Search transactions..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500" />
         </div>
       </div>
       
       <!-- Type Filter -->
       <div class="w-full lg:w-48">
-        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Type</label>
-        <select v-model="filters.type" @change="applyFilters" class="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm cursor-pointer">
-          <option value="">All Transactions</option>
-          <option value="income">Income Only</option>
-          <option value="expense">Expense Only</option>
+        <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Type</label>
+        <select v-model="filters.type" @change="applyFilters" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm cursor-pointer text-slate-800 dark:text-slate-200">
+          <option value="" class="dark:bg-slate-800">All Transactions</option>
+          <option value="income" class="dark:bg-slate-800">Income Only</option>
+          <option value="expense" class="dark:bg-slate-800">Expense Only</option>
         </select>
       </div>
 
       <!-- Date Range -->
       <div class="w-full lg:w-auto flex gap-3">
         <div class="flex-1">
-          <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Start Date</label>
-          <input v-model="filters.date_from" @change="applyFilters" type="date" class="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-600" />
+          <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Start Date</label>
+          <input v-model="filters.date_from" @change="applyFilters" type="date" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-600 dark:text-slate-300 dark:[color-scheme:dark]" />
         </div>
         <div class="flex-1">
-          <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">End Date</label>
-          <input v-model="filters.date_to" @change="applyFilters" type="date" class="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-600" />
+          <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">End Date</label>
+          <input v-model="filters.date_to" @change="applyFilters" type="date" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm text-slate-600 dark:text-slate-300 dark:[color-scheme:dark]" />
         </div>
       </div>
 
       <!-- Reset Button -->
-      <button @click="resetFilters" class="w-full lg:w-auto px-5 py-2.5 bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-colors font-medium flex items-center justify-center gap-2 shadow-sm">
+      <button @click="resetFilters" class="w-full lg:w-auto px-5 py-2.5 bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white rounded-xl transition-colors font-medium flex items-center justify-center gap-2 shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
         </svg>
@@ -56,11 +56,11 @@
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700/50 overflow-hidden flex flex-col transition-colors duration-300">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 text-sm">
+            <tr class="bg-slate-50 dark:bg-slate-700/30 border-b border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-sm">
               <th class="p-4 font-medium">Date</th>
               <th class="p-4 font-medium">Description</th>
               <th class="p-4 font-medium">Category</th>
@@ -68,18 +68,18 @@
               <th class="p-4 font-medium text-center">Actions</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
             <tr v-if="loading" class="text-center">
-              <td colspan="5" class="p-8 text-slate-500">Loading transactions...</td>
+              <td colspan="5" class="p-8 text-slate-500 dark:text-slate-400">Loading transactions...</td>
             </tr>
             <tr v-else-if="transactions.length === 0" class="text-center">
-              <td colspan="5" class="p-8 text-slate-500">No transactions found.</td>
+              <td colspan="5" class="p-8 text-slate-500 dark:text-slate-400">No transactions found.</td>
             </tr>
-            <tr v-for="t in transactions" :key="t.id" class="hover:bg-slate-50 transition-colors">
-              <td class="p-4 text-slate-600">{{ formatDate(t.transaction_date) }}</td>
-              <td class="p-4 text-slate-800">{{ t.description || '-' }}</td>
+            <tr v-for="t in transactions" :key="t.id" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+              <td class="p-4 text-slate-600 dark:text-slate-400">{{ formatDate(t.transaction_date) }}</td>
+              <td class="p-4 text-slate-800 dark:text-slate-200">{{ t.description || '-' }}</td>
               <td class="p-4">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium gap-1.5" :style="{ backgroundColor: (t.category?.color || '#cbd5e1') + '20', color: t.category?.color || '#475569' }">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium gap-1.5" :style="{ backgroundColor: (t.category?.color || '#cbd5e1') + (isDarkMode ? '20' : '20'), color: t.category?.color || (isDarkMode ? '#94a3b8' : '#475569') }">
                   <component v-if="t.category?.icon" :is="getIconComponent(t.category.icon)" class="w-3.5 h-3.5" />
                   {{ t.category?.name || 'Unknown' }}
                 </span>
@@ -97,24 +97,24 @@
       </div>
 
       <!-- Pagination Controls -->
-      <div v-if="pagination.last_page > 1" class="p-4 border-t border-slate-100 flex justify-between items-center bg-slate-50">
-        <span class="text-sm text-slate-500">
-          Showing <span class="font-medium text-slate-800">{{ pagination.from || 0 }}</span> to <span class="font-medium text-slate-800">{{ pagination.to || 0 }}</span> of <span class="font-medium text-slate-800">{{ pagination.total }}</span> results
+      <div v-if="pagination.last_page > 1" class="p-4 border-t border-slate-100 dark:border-slate-700/50 flex justify-between items-center bg-slate-50 dark:bg-slate-700/30">
+        <span class="text-sm text-slate-500 dark:text-slate-400">
+          Showing <span class="font-medium text-slate-800 dark:text-slate-200">{{ pagination.from || 0 }}</span> to <span class="font-medium text-slate-800 dark:text-slate-200">{{ pagination.to || 0 }}</span> of <span class="font-medium text-slate-800 dark:text-slate-200">{{ pagination.total }}</span> results
         </span>
         <div class="flex gap-2">
-          <button @click="changePage(pagination.current_page - 1)" :disabled="pagination.current_page === 1" class="px-3 py-1 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+          <button @click="changePage(pagination.current_page - 1)" :disabled="pagination.current_page === 1" class="px-3 py-1 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Previous</button>
           
-          <button @click="changePage(pagination.current_page + 1)" :disabled="pagination.current_page === pagination.last_page" class="px-3 py-1 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
+          <button @click="changePage(pagination.current_page + 1)" :disabled="pagination.current_page === pagination.last_page" class="px-3 py-1 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next</button>
         </div>
       </div>
     </div>
 
     <!-- Modal Pop-up -->
-    <div v-if="isModalOpen" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
-          <h3 class="text-lg font-bold text-slate-800">{{ isEditing ? 'Edit Transaction' : 'Add New Transaction' }}</h3>
-          <button @click="closeModal" class="text-slate-400 hover:text-slate-600 text-2xl leading-none">&times;</button>
+    <div v-if="isModalOpen" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200 border border-transparent dark:border-slate-700">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">{{ isEditing ? 'Edit Transaction' : 'Add New Transaction' }}</h3>
+          <button @click="closeModal" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl leading-none">&times;</button>
         </div>
         
         <form @submit.prevent="saveTransaction" class="p-6 space-y-4">
@@ -122,48 +122,48 @@
           <div class="flex gap-4">
             <label class="flex-1 cursor-pointer">
               <input type="radio" v-model="form.type" value="expense" class="peer sr-only" @change="handleTypeChange" />
-              <div class="text-center p-3 rounded-lg border border-slate-200 peer-checked:bg-red-50 peer-checked:border-red-500 peer-checked:text-red-700 transition-colors font-medium">Expense</div>
+              <div class="text-center p-3 rounded-lg border border-slate-200 dark:border-slate-600 peer-checked:bg-red-50 dark:peer-checked:bg-red-900/30 peer-checked:border-red-500 dark:peer-checked:border-red-500 peer-checked:text-red-700 dark:peer-checked:text-red-400 text-slate-700 dark:text-slate-300 transition-colors font-medium">Expense</div>
             </label>
             <label class="flex-1 cursor-pointer">
               <input type="radio" v-model="form.type" value="income" class="peer sr-only" @change="handleTypeChange" />
-              <div class="text-center p-3 rounded-lg border border-slate-200 peer-checked:bg-emerald-50 peer-checked:border-emerald-500 peer-checked:text-emerald-700 transition-colors font-medium">Income</div>
+              <div class="text-center p-3 rounded-lg border border-slate-200 dark:border-slate-600 peer-checked:bg-emerald-50 dark:peer-checked:bg-emerald-900/30 peer-checked:border-emerald-500 dark:peer-checked:border-emerald-500 peer-checked:text-emerald-700 dark:peer-checked:text-emerald-400 text-slate-700 dark:text-slate-300 transition-colors font-medium">Income</div>
             </label>
           </div>
 
           <!-- Amount -->
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Amount</label>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Amount</label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">฿</span>
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 dark:text-slate-400">฿</span>
               <input v-model.number="form.amount" type="number" step="0.01" min="0.01" required
-                class="w-full pl-8 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" placeholder="0.00" />
+                class="w-full pl-8 pr-4 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-colors" placeholder="0.00" />
             </div>
           </div>
 
           <!-- Category -->
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Category</label>
-            <select v-model="form.category_id" required class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-              <option value="" disabled>Select a category</option>
-              <option v-for="cat in filteredCategories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Category</label>
+            <select v-model="form.category_id" required class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-slate-800 dark:text-white transition-colors">
+              <option value="" disabled class="dark:bg-slate-800">Select a category</option>
+              <option v-for="cat in filteredCategories" :key="cat.id" :value="cat.id" class="dark:bg-slate-800">{{ cat.name }}</option>
             </select>
           </div>
 
           <!-- Date -->
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Date</label>
-            <input v-model="form.transaction_date" type="date" required class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" />
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Date</label>
+            <input v-model="form.transaction_date" type="date" required class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-slate-800 dark:text-white dark:[color-scheme:dark] transition-colors" />
           </div>
 
           <!-- Description -->
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Description (Optional)</label>
-            <input v-model="form.description" type="text" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none" placeholder="e.g. Lunch with team" />
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Description (Optional)</label>
+            <input v-model="form.description" type="text" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-colors" placeholder="e.g. Lunch with team" />
           </div>
 
           <!-- Actions -->
           <div class="pt-4 flex gap-3">
-            <button type="button" @click="closeModal" class="flex-1 px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 font-medium transition-colors">Cancel</button>
+            <button type="button" @click="closeModal" class="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 font-medium transition-colors">Cancel</button>
             <button type="submit" :disabled="saving" class="flex-1 px-4 py-2 bg-primary hover:bg-emerald-700 text-white rounded-lg font-medium flex justify-center items-center transition-colors">
               <span v-if="saving">Saving...</span>
               <span v-else>Save</span>
@@ -181,7 +181,9 @@ import { toast } from 'vue3-toastify'
 import api from '../lib/api'
 import { useCategoryStore } from '../stores/category'
 import { getIconComponent } from '../lib/icons'
+import { useTheme } from '../composables/useTheme'
 
+const { isDarkMode } = useTheme()
 const categoryStore = useCategoryStore()
 
 const transactions = ref([])

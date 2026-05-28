@@ -1,7 +1,5 @@
 <template>
-  <!-- Added md:flex-row to align side-by-side on desktop, but default flex is row. 
-       Actually default flex is row, so we just add mobile nav at the bottom of main or absolutely positioned. -->
-  <div class="h-screen bg-slate-50 font-sans text-slate-900 flex overflow-hidden relative">
+  <div class="h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 flex overflow-hidden relative transition-colors duration-300">
     
     <!-- Sidebar Navigation (Desktop Only) -->
     <aside 
@@ -26,7 +24,7 @@
         </div>
         <h1 v-if="isSidebarOpen" class="text-xl font-bold text-white tracking-wide truncate transition-opacity duration-300">Mini Tracker</h1>
       </div>
-      
+
       <!-- Navigation Links -->
       <nav class="flex-1 p-4 space-y-2 mt-2 overflow-y-auto overflow-x-hidden">
         <RouterLink to="/" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium text-slate-300 hover:bg-slate-800 hover:text-white group" exact-active-class="!bg-primary !text-white shadow-md shadow-primary/20" :class="!isSidebarOpen && 'justify-center px-0'">
@@ -47,9 +45,15 @@
           <div v-if="!isSidebarOpen" class="absolute left-16 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50">Categories</div>
         </RouterLink>
       </nav>
-      
+
       <!-- Footer Area (Profile & Logout) -->
       <div class="p-4 border-t border-slate-800">
+        <!-- Dark Mode Toggle Desktop -->
+        <button @click="toggleDarkMode" class="flex w-full items-center mb-2 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group" :class="isSidebarOpen ? 'px-4 py-3' : 'px-0 py-3 justify-center'">
+          <component :is="isDarkMode ? SunIcon : MoonIcon" class="w-6 h-6 shrink-0" :class="isSidebarOpen ? 'mr-3' : ''" />
+          <span v-if="isSidebarOpen" class="truncate font-medium text-sm">{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+          <div v-if="!isSidebarOpen" class="absolute left-16 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50">{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</div>
+        </button>
         <RouterLink to="/profile" class="flex items-center mb-2 rounded-xl transition-all hover:bg-slate-800 group" :class="isSidebarOpen ? 'px-4 py-3' : 'px-0 py-3 justify-center'">
           <UserCircleIcon class="w-6 h-6 text-slate-400 group-hover:text-white shrink-0" :class="isSidebarOpen ? 'mr-3' : ''" />
           <div v-if="isSidebarOpen" class="overflow-hidden">
@@ -76,12 +80,12 @@
     </main>
 
     <!-- Mobile Bottom Navigation (Only visible on small screens) -->
-    <nav v-if="isAuthenticated" class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 flex justify-around items-center p-2 z-50 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.05)]">
+    <nav v-if="isAuthenticated" class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 flex justify-around items-center p-2 z-50 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.05)] transition-colors duration-300">
       <RouterLink to="/" class="flex flex-col items-center p-2 text-slate-400 hover:text-primary transition-colors" exact-active-class="!text-primary">
         <HomeIcon class="w-6 h-6" />
         <span class="text-[10px] mt-1 font-medium">Home</span>
       </RouterLink>
-      
+
       <RouterLink to="/transactions" class="flex flex-col items-center p-2 text-slate-400 hover:text-primary transition-colors" exact-active-class="!text-primary">
         <ArrowsRightLeftIcon class="w-6 h-6" />
         <span class="text-[10px] mt-1 font-medium">Trans</span>
@@ -96,6 +100,11 @@
         <UserCircleIcon class="w-6 h-6" />
         <span class="text-[10px] mt-1 font-medium">Profile</span>
       </RouterLink>
+
+      <button @click="toggleDarkMode" class="flex flex-col items-center p-2 text-slate-400 hover:text-primary transition-colors">
+        <component :is="isDarkMode ? SunIcon : MoonIcon" class="w-6 h-6" />
+        <span class="text-[10px] mt-1 font-medium">{{ isDarkMode ? 'Light' : 'Dark' }}</span>
+      </button>
     </nav>
 
   </div>
@@ -112,12 +121,16 @@ import {
   ChevronLeftIcon, 
   ChevronRightIcon,
   UserCircleIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightOnRectangleIcon,
+  SunIcon,
+  MoonIcon
 } from '@heroicons/vue/24/outline'
+import { useTheme } from './composables/useTheme'
 
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
+const { isDarkMode, toggleDarkMode } = useTheme()
 
 // State for sidebar toggle
 const isSidebarOpen = ref(true)
