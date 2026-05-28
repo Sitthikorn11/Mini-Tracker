@@ -1,9 +1,6 @@
 <template>
   <div class="p-6 max-w-7xl mx-auto space-y-6">
-    <div class="flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-slate-800">Dashboard</h1>
-      <div class="text-slate-500 font-medium">This Month</div>
-    </div>
+    <h1 class="text-2xl font-bold text-slate-800">Dashboard</h1>
 
     <!-- Summary Cards -->
     <div v-if="!loading" class="grid grid-cols-1 md:grid-cols-3 gap-6">
